@@ -1,6 +1,6 @@
-import UserRoute from './user/user';
+// import UserRoute from './user/user';
 import Lsp from './lsp/lspCourse';
 
-const allRoutev1 = [UserRoute, Lsp];
+const allRoutev1 = [ Lsp];
 
 export default allRoutev1;
