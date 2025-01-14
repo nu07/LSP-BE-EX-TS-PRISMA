@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root123
+      POSTGRES_DB: kelbuk-pg
+    ports:
+      - '7072:5432' # Port PostgreSQL diubah menjadi 7072
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: root@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - '7073:80'
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:

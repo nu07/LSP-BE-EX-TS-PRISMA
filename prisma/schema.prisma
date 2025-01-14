@@ -1,0 +1,99 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// generator erd {
+//   provider = "prisma-erd-generator"
+//   output   = "../prisma/erd"
+// }
+
+generator dbml {
+  provider = "prisma-dbml-generator"
+  output   = "../prisma/dbml"
+}
+
+model Penggunaan {
+  id_penggunaan Int @id @default(autoincrement())
+  id_pelanggan  Int
+  bulan         Int
+  tahun         Int
+  meter_awal    Int
+  meter_akhir   Int
+  Pelanggan     Pelanggan @relation(fields: [id_pelanggan], references: [id_pelanggan])
+  Tagihan       Tagihan[]
+}
+
+model Pelanggan {
+  id_pelanggan  Int @id @default(autoincrement())
+  username      String
+  password      String
+  nomer_kwh     String
+  nama_pelanggan String
+  alamat        String
+  id_tarif      Int
+  Tarif         Tarif @relation(fields: [id_tarif], references: [id_tarif])
+  Penggunaan    Penggunaan[]
+  Tagihan       Tagihan[]
+  Pembayaran    Pembayaran[]
+}
+
+model Tagihan {
+  id_tagihan    Int @id @default(autoincrement())
+  id_penggunaan Int
+  id_pelanggan  Int
+  bulan         Int
+  tahun         Int
+  jumlah_meter  Int
+  status        String
+  Penggunaan    Penggunaan @relation(fields: [id_penggunaan], references: [id_penggunaan])
+  Pelanggan     Pelanggan @relation(fields: [id_pelanggan], references: [id_pelanggan])
+  Pembayaran    Pembayaran[]
+}
+
+model Tarif {
+  id_tarif      Int @id @default(autoincrement())
+  daya          Int
+  tarifperkwh   Int
+  Pelanggan     Pelanggan[]
+}
+
+model User {
+  id_user       Int @id @default(autoincrement())
+  username      String
+  password      String
+  nama_admin    String
+  id_level      Int
+  Level         Level @relation(fields: [id_level], references: [id_level])
+  Pembayaran    Pembayaran[]
+}
+
+model Level {
+  id_level      Int @id @default(autoincrement())
+  nama_level    String
+  User          User[]
+}
+
+model Pembayaran {
+  id_pembayaran Int @id @default(autoincrement())
+  id_tagihan    Int
+  id_pelanggan  Int
+  tanggal_pembayaran DateTime
+  bulan_bayar   Int
+  biaya_admin   Int
+  total_bayar   Int
+  id_user       Int
+  Tagihan       Tagihan @relation(fields: [id_tagihan], references: [id_tagihan])
+  Pelanggan     Pelanggan @relation(fields: [id_pelanggan], references: [id_pelanggan])
+  User          User @relation(fields: [id_user], references: [id_user])
+}

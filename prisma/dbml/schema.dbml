@@ -1,0 +1,94 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table Penggunaan {
+  id_penggunaan Int [pk, increment]
+  id_pelanggan Int [not null]
+  bulan Int [not null]
+  tahun Int [not null]
+  meter_awal Int [not null]
+  meter_akhir Int [not null]
+  Pelanggan Pelanggan [not null]
+  Tagihan Tagihan [not null]
+}
+
+Table Pelanggan {
+  id_pelanggan Int [pk, increment]
+  username String [not null]
+  password String [not null]
+  nomer_kwh String [not null]
+  nama_pelanggan String [not null]
+  alamat String [not null]
+  id_tarif Int [not null]
+  Tarif Tarif [not null]
+  Penggunaan Penggunaan [not null]
+  Tagihan Tagihan [not null]
+  Pembayaran Pembayaran [not null]
+}
+
+Table Tagihan {
+  id_tagihan Int [pk, increment]
+  id_penggunaan Int [not null]
+  id_pelanggan Int [not null]
+  bulan Int [not null]
+  tahun Int [not null]
+  jumlah_meter Int [not null]
+  status String [not null]
+  Penggunaan Penggunaan [not null]
+  Pelanggan Pelanggan [not null]
+  Pembayaran Pembayaran [not null]
+}
+
+Table Tarif {
+  id_tarif Int [pk, increment]
+  daya Int [not null]
+  tarifperkwh Int [not null]
+  Pelanggan Pelanggan [not null]
+}
+
+Table User {
+  id_user Int [pk, increment]
+  username String [not null]
+  password String [not null]
+  nama_admin String [not null]
+  id_level Int [not null]
+  Level Level [not null]
+  Pembayaran Pembayaran [not null]
+}
+
+Table Level {
+  id_level Int [pk, increment]
+  nama_level String [not null]
+  User User [not null]
+}
+
+Table Pembayaran {
+  id_pembayaran Int [pk, increment]
+  id_tagihan Int [not null]
+  id_pelanggan Int [not null]
+  tanggal_pembayaran DateTime [not null]
+  bulan_bayar Int [not null]
+  biaya_admin Int [not null]
+  total_bayar Int [not null]
+  id_user Int [not null]
+  Tagihan Tagihan [not null]
+  Pelanggan Pelanggan [not null]
+  User User [not null]
+}
+
+Ref: Penggunaan.id_pelanggan > Pelanggan.id_pelanggan
+
+Ref: Pelanggan.id_tarif > Tarif.id_tarif
+
+Ref: Tagihan.id_penggunaan > Penggunaan.id_penggunaan
+
+Ref: Tagihan.id_pelanggan > Pelanggan.id_pelanggan
+
+Ref: User.id_level > Level.id_level
+
+Ref: Pembayaran.id_tagihan > Tagihan.id_tagihan
+
+Ref: Pembayaran.id_pelanggan > Pelanggan.id_pelanggan
+
+Ref: Pembayaran.id_user > User.id_user

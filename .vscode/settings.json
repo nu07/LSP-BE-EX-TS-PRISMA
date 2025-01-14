@@ -1,0 +1,14 @@
+{
+  "files.autoSave": "afterDelay",
+  "editor.formatOnPaste": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.tabWidth": 4,
+  "window.zoomLevel": -1,
+  "editor.cursorBlinking": "expand",
+  "editor.cursorStyle": "line-thin",
+  "editor.inlineSuggest.enabled": true,
+  "prettier.bracketSameLine": true,
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  }
+}
