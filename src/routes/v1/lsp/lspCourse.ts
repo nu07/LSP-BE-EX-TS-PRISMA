@@ -4,7 +4,6 @@ import { getPelanggan, updatePelanggan, deletePelanggan } from '../../../control
 
 const router: Router = Router();
 
-
 // part 3
 // router.post('/lsp');
 router.post('/pelanggan', createPelanggan);
@@ -13,4 +12,3 @@ router.put('/pelanggan/:id', updatePelanggan);
 router.delete('/pelanggan/:id', deletePelanggan);
 
 export default router;
-
