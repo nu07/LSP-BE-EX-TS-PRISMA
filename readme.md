@@ -1,7 +1,10 @@
 generate prisma ERD = npx prisma generate
 generate erd = npx prisma generate
 migrasi ke db = npx prisma migrate dev
+gunakan port 7072 untuk akses postgre pada .env
 
+
+contoh: postgres="postgresql://root:root123@localhost:7072/lsp-bsi"
 
 
 https://dbdiagram.io/
