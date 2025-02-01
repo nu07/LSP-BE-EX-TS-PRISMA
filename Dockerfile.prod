@@ -1,0 +1,30 @@
+FROM node:20.11.0-alpine AS builder
+
+WORKDIR /opt/web
+COPY package.json ./
+
+COPY . .
+
+RUN apk update \ 
+    && apk upgrade --no-cache \
+    && apk add --no-cache \
+    && apk add bash \
+    && rm -rf /var/cache/apk/* \
+    && apk add --no-cache git
+
+RUN rm -rf node_modules
+# RUN npm install 
+# RUN npm install -g yarn
+RUN yarn global add  typescript husky
+# RUN yarn add typescript ts-node --save-dev
+RUN yarn exec tsc --version
+RUN yarn add cross-env --save
+ENV PATH="./node_modules/.bin:$PATH"
+ENV TZ=Asia/Jakarta
+ENV NODE_ENV=production
+# RUN npm install --legacy-peer-deps
+RUN yarn install
+RUN yarn build
+# RUN pnpm start:prod
+
+CMD [ "node", "dist/index.js" ]
