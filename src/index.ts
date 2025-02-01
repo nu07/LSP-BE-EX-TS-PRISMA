@@ -18,13 +18,12 @@ let corsOptions = {
 };
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors<Request>(corsOptions));
 app.use('/public', express.static(publicFolderPath));
 
 for (let index = 0; index < RouteV1.length; index++) {
   app.use('/v1', RouteV1[index]);
 }
-
-app.use(cors<Request>(corsOptions));
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Express + TypeScript Server');
