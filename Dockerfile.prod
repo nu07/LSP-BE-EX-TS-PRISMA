@@ -24,6 +24,7 @@ ENV TZ=Asia/Jakarta
 ENV NODE_ENV=production
 # RUN npm install --legacy-peer-deps
 RUN yarn install
+RUN yarn prisma generate
 RUN yarn build
 # RUN pnpm start:prod
 
