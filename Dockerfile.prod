@@ -3,7 +3,7 @@ FROM node:20.11.0-alpine AS builder
 WORKDIR /opt/web
 COPY package.json ./
 
-COPY . .
+COPY . ./
 
 RUN apk update \ 
     && apk upgrade --no-cache \
