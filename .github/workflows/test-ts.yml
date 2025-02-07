@@ -24,10 +24,10 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm
 
-      - name: Generate Prisma Module
+      - name: Install dependencies
         run: pnpm install
 
-      - name: Install dependencies
+      - name: Generate Prisma Module
         run: pnpm prisma generate
 
       - name: Build
